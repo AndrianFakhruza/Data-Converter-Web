@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hasil Grafik</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, #5c98f2, #7fd7ff, #8fbcff, #b0e0ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .grafik-wrapper {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .grafik-box {
+      flex: 1 1 45%;
+      text-align: center;
+    }
+
+    .grafik-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .grafik-box h3 {
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: #1e7e34;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      background-color: #ff6b6b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #d9534f;
+    }
+
+    .back-container {
+      text-align: left;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Hasil Grafik Laporan Bulanan</h2>
+
+    {% if grafik_desa or grafik_pemeriksaan %}
+      <div class="grafik-wrapper">
+        {% if grafik_desa %}
+          <div class="grafik-box">
+            <h3>📌 Grafik Jumlah Desa</h3>
+            <img src="{{ url_for('static', filename=grafik_desa) }}" alt="Grafik Desa">
+            <br>
+            <a href="{{ url_for('static', filename=grafik_desa) }}" download class="download-btn">⬇️ Download Grafik Desa</a>
+          </div>
+        {% endif %}
+
+        {% if grafik_pemeriksaan %}
+          <div class="grafik-box">
+            <h3>📌 Grafik Jumlah Pemeriksaan</h3>
+            <img src="{{ url_for('static', filename=grafik_pemeriksaan) }}" alt="Grafik Pemeriksaan">
+            <br>
+            <a href="{{ url_for('static', filename=grafik_pemeriksaan) }}" download class="download-btn">⬇️ Download Grafik Pemeriksaan</a>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <p style="color: red; text-align: center;">⚠️ Grafik tidak tersedia untuk bulan & tahun tersebut.</p>
+    {% endif %}
+
+    <div class="back-container">
+      <a href="{{ url_for('index') }}" class="back-btn">🔙 Kembali ke Menu</a>
+    </div>
+  </div>
+</body>
+</html>
