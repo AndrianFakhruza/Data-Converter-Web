@@ -1,0 +1,11 @@
+// Build
+docker build -t flask-lab-app .
+
+// Menjalankan aplikasi
+docker run -p 5000:5000 flask-lab-app
+
+// Menjalankan ngrok
+c:
+cd users/lenovo
+ngrok
+ngrok http 5050
