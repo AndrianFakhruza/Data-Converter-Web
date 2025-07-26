@@ -142,8 +142,7 @@
 
     <h2>Input Jumlah Desa - Bulan {{ bulan }} / {{ tahun }}</h2>
     
-    <!-- ✅ Perubahan penting di sini -->
-    <form method="POST" action="{{ url_for('input_desa') }}">
+    <form method="POST" action="{{ url_for('input_desa') }}" id="desaForm">
       <input type="hidden" name="bulan" value="{{ bulan }}">
       <input type="hidden" name="tahun" value="{{ tahun }}">
       <input type="hidden" name="submit_data" value="true">
@@ -175,6 +174,16 @@
         rows[i].style.display = td.innerHTML.toUpperCase().includes(filter) ? "" : "none";
       }
     }
+
+    // 🔒 Cegah form submit saat Enter ditekan di input
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("desaForm");
+      form.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+          e.preventDefault();
+        }
+      });
+    });
   </script>
 </body>
 </html>
