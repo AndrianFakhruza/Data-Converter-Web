@@ -87,6 +87,14 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       width: 100px;
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .btn-container {
@@ -140,7 +148,6 @@
 
     <h2>Input Jumlah Pemeriksaan - Bulan {{ bulan }} / {{ tahun }}</h2>
     
-    <!-- ✅ Tambahin ID di form -->
     <form method="POST" action="{{ url_for('input_pemeriksaan') }}" id="pemeriksaanForm">
       <input type="hidden" name="bulan" value="{{ bulan }}">
       <input type="hidden" name="tahun" value="{{ tahun }}">
@@ -174,11 +181,15 @@
       }
     }
 
-    // 🔒 Cegah submit saat Enter ditekan di input form
+    // 🔒 Cegah submit saat Enter & panah atas/bawah di input number
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.getElementById("pemeriksaanForm");
       form.addEventListener("keydown", function (e) {
         if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+          e.preventDefault();
+        }
+
+        if ((e.key === "ArrowUp" || e.key === "ArrowDown") && e.target.type === "number") {
           e.preventDefault();
         }
       });
