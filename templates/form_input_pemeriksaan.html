@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Input Jumlah Pemeriksaan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -26,23 +27,6 @@
       max-width: 1000px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-
-    .alert-success {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      animation: slideDown 0.5s ease-out;
-    }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
@@ -138,16 +122,16 @@
   <div class="container">
 
     {% if success %}
-    <div class="alert-success">
-      ✅ Data berhasil disimpan ke <br>
-      <span style="font-weight: normal;">data/jumlah_pemeriksaan_{{ tahun }}_{{ bulan }}.csv</span>
-      <br><br>
-      <a href="{{ url_for('index') }}" class="back-btn">🔙 Kembali ke Menu</a>
-    </div>
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+        myModal.show();
+      });
+    </script>
     {% endif %}
 
     <h2>Input Jumlah Pemeriksaan - Bulan {{ bulan }} / {{ tahun }}</h2>
-    
+
     <form method="POST" action="{{ url_for('input_pemeriksaan') }}" id="pemeriksaanForm">
       <input type="hidden" name="bulan" value="{{ bulan }}">
       <input type="hidden" name="tahun" value="{{ tahun }}">
@@ -166,11 +150,50 @@
 
       <div class="btn-container">
         <a href="{{ url_for('index') }}" class="back-btn">🔙 Kembali ke Menu</a>
-        <button type="submit">💾 Simpan Data</button>
+        <button type="button" onclick="showConfirm()">💾 Simpan Data</button>
       </div>
     </form>
   </div>
 
+  <!-- Modal Sukses -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="successModalLabel">✅ Data Berhasil Disimpan!</h5>
+        </div>
+        <div class="modal-body">
+          Data berhasil disimpan ke:
+          <strong>data/jumlah_pemeriksaan_{{ tahun }}_{{ bulan }}.csv</strong>
+        </div>
+        <div class="modal-footer">
+          <a href="{{ url_for('index') }}" class="btn btn-success">🏠 Kembali ke Menu</a>
+          <a href="{{ url_for('isi_jumlah_pemeriksaan') }}" class="btn btn-secondary">📅 Isi Bulan & Tahun Lagi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pengisian Data</h5>
+        </div>
+        <div class="modal-body">
+          Apakah semua data sudah benar?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cek Lagi</button>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     function search(input) {
       let filter = input.value.toUpperCase();
@@ -181,19 +204,26 @@
       }
     }
 
-    // 🔒 Cegah submit saat Enter & panah atas/bawah di input number
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.getElementById("pemeriksaanForm");
       form.addEventListener("keydown", function (e) {
         if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
           e.preventDefault();
         }
-
         if ((e.key === "ArrowUp" || e.key === "ArrowDown") && e.target.type === "number") {
           e.preventDefault();
         }
       });
     });
+
+    function showConfirm() {
+      var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+      confirmModal.show();
+    }
+
+    function submitForm() {
+      document.getElementById('pemeriksaanForm').submit();
+    }
   </script>
 </body>
 </html>
