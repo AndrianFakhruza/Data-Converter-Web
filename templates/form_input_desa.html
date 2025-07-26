@@ -172,7 +172,7 @@
         </div>
         <div class="modal-footer">
           <a href="{{ url_for('index') }}" class="btn btn-success">🏠 Kembali ke Menu</a>
-          <a href="{{ url_for('isi_jumlahdesa') }}" class="btn btn-secondary">📅 Isi Bulan & Tahun Lagi</a>
+          <a href="{{ url_for('isi_jumlah_desa') }}" class="btn btn-secondary">📅 Isi Bulan & Tahun Lagi</a>
         </div>
       </div>
     </div>
@@ -183,13 +183,13 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-warning">
-          <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Penyimpanan</h5>
+          <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pengisian Data</h5>
         </div>
         <div class="modal-body">
-          Yakin mau simpan data ini?
+          apakah semua data sudah benar?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cek Lagi</button>
           <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Simpan</button>
         </div>
       </div>
