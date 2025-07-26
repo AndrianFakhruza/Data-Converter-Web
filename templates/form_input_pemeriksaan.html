@@ -140,8 +140,8 @@
 
     <h2>Input Jumlah Pemeriksaan - Bulan {{ bulan }} / {{ tahun }}</h2>
     
-    <!-- ✅ Perubahan penting di sini -->
-    <form method="POST" action="{{ url_for('input_pemeriksaan') }}">
+    <!-- ✅ Tambahin ID di form -->
+    <form method="POST" action="{{ url_for('input_pemeriksaan') }}" id="pemeriksaanForm">
       <input type="hidden" name="bulan" value="{{ bulan }}">
       <input type="hidden" name="tahun" value="{{ tahun }}">
       <input type="hidden" name="submit_data" value="true">
@@ -173,6 +173,16 @@
         rows[i].style.display = td.innerHTML.toUpperCase().includes(filter) ? "" : "none";
       }
     }
+
+    // 🔒 Cegah submit saat Enter ditekan di input form
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("pemeriksaanForm");
+      form.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+          e.preventDefault();
+        }
+      });
+    });
   </script>
 </body>
 </html>
