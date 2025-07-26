@@ -88,6 +88,14 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       width: 100px;
+      /* Hilangkan spinner (panah atas/bawah) */
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .btn-container {
@@ -178,8 +186,14 @@
     // 🔒 Cegah form submit saat Enter ditekan di input
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.getElementById("desaForm");
+
       form.addEventListener("keydown", function (e) {
         if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+          e.preventDefault();
+        }
+
+        // Cegah ArrowUp / ArrowDown di input number
+        if ((e.key === "ArrowUp" || e.key === "ArrowDown") && e.target.type === "number") {
           e.preventDefault();
         }
       });
