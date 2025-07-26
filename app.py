@@ -19,10 +19,10 @@ desa_list = sorted([
 ])
 
 pemeriksaan_list = sorted([
-    "CHOLESTEROL", "KADAR GULA DARAH", "TBC", "SPILIS", "HIV", "HBSAG", "WIDAL",
+    "CHOLESTEROL", "KADAR GULA DARAH", "TBC", "SIPILIS", "HIV", "HBSAG", "WIDAL",
     "ASAM URAT", "DARAH RUTIN", "URINALISA", "GOLONGAN DARAH", "CAMPAK", "MALARIA",
     "TRIGLISERIDA", "DBD", "SGOT", "SGPT", "T.PROTEIN", "R.FAKTOR", "CREATININT",
-    "UREA", "ALBUMIN", "BIL.DIRECT", "RAPID ANTIGEN"
+    "UREA", "ALBUMIN", "BIL.DIRECT"
 ])
 
 @app.route('/')
