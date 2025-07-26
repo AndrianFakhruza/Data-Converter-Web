@@ -88,8 +88,8 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       width: 100px;
-      /* Hilangkan spinner (panah atas/bawah) */
       -moz-appearance: textfield;
+      appearance: textfield;
     }
 
     input[type="number"]::-webkit-inner-spin-button,
@@ -183,7 +183,7 @@
       }
     }
 
-    // 🔒 Cegah form submit saat Enter ditekan di input
+    // 🔒 Cegah submit saat Enter + Arrow di input number
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.getElementById("desaForm");
 
@@ -192,7 +192,6 @@
           e.preventDefault();
         }
 
-        // Cegah ArrowUp / ArrowDown di input number
         if ((e.key === "ArrowUp" || e.key === "ArrowDown") && e.target.type === "number") {
           e.preventDefault();
         }
