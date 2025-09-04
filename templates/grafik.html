@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Hasil Grafik</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Converter Web - Hasil Grafik</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     body {
       margin: 0;
@@ -10,10 +19,7 @@
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
+      padding: 40px 20px;
     }
 
     @keyframes gradientBG {
@@ -22,115 +28,258 @@
       100% { background-position: 0% 50%; }
     }
 
-    .container {
-      background-color: white;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      max-width: 1000px;
-      width: 100%;
-    }
-
-    h2 {
-      color: #333;
+    .header-container {
       text-align: center;
       margin-bottom: 30px;
     }
 
-    .grafik-wrapper {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+    .header-container h2 {
+      color: #2c3e50;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
-    .grafik-box {
-      flex: 1 1 45%;
-      text-align: center;
+    .header-container p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
     }
 
-    .grafik-box img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .main-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .grafik-box h3 {
-      margin-bottom: 15px;
-      color: #444;
+    .chart-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
     }
 
-    .download-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #28a745;
+    .chart-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .chart-card .card-header {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
       color: white;
+      border-radius: 12px 12px 0 0 !important;
+      padding: 15px 20px;
+      font-weight: 600;
+    }
+
+    .chart-card .card-body {
+      padding: 20px;
+    }
+
+    .chart-image {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .chart-image:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #28a745, #20c997);
       border: none;
       border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .download-btn:hover {
-      background-color: #1e7e34;
-    }
-
-    .back-btn {
-      display: inline-block;
-      margin-top: 30px;
-      background-color: green;
-      color: white;
       padding: 10px 20px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    }
+
+    .btn-back {
+      background: linear-gradient(135deg, #6c757d, #343a40);
+      border: none;
       border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 30px;
     }
 
-    .back-btn:hover {
-      background-color: #d9534f;
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
     }
 
-    .back-container {
-      text-align: left;
-      margin-top: 40px;
+    .no-data-alert {
+      background: linear-gradient(135deg, #fff3cd, #ffc107);
+      border: none;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+      width: 5%;
+    }
+
+    /* Modal styles */
+    .modal-content {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 20px 15px;
+      }
+      
+      body {
+        padding: 20px 10px;
+      }
+      
+      .chart-image {
+        height: 250px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>📊 Hasil Grafik Laporan Bulanan</h2>
+  <div class="header-container">
+    <h2><i class="fas fa-chart-line me-2"></i>Hasil Grafik Laporan Bulanan</h2>
+    <p>Visualisasi data jumlah desa dan pemeriksaan</p>
+  </div>
 
+  <div class="main-container">
     {% if grafik_desa or grafik_pemeriksaan %}
-      <div class="grafik-wrapper">
+      <div class="row">
         {% if grafik_desa %}
-          <div class="grafik-box">
-            <h3>📌 Grafik Jumlah Desa</h3>
-            <img src="{{ url_for('static', filename=grafik_desa) }}" alt="Grafik Desa">
-            <br>
-            <a href="{{ url_for('static', filename=grafik_desa) }}" download class="download-btn">⬇️ Download Grafik Desa</a>
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card chart-card">
+              <div class="card-header">
+                <i class="fas fa-village me-2"></i>Grafik Jumlah Desa
+              </div>
+              <div class="card-body">
+                <img src="{{ url_for('static', filename=grafik_desa) }}" 
+                     alt="Grafik Desa" 
+                     class="chart-image"
+                     data-bs-toggle="modal" 
+                     data-bs-target="#imageModal"
+                     data-image-src="{{ url_for('static', filename=grafik_desa) }}"
+                     data-image-title="Grafik Jumlah Desa">
+                
+                <a href="{{ url_for('static', filename=grafik_desa) }}" 
+                   download 
+                   class="btn btn-download">
+                  <i class="fas fa-download me-2"></i>Download Grafik Desa
+                </a>
+              </div>
+            </div>
           </div>
         {% endif %}
 
         {% if grafik_pemeriksaan %}
-          <div class="grafik-box">
-            <h3>📌 Grafik Jumlah Pemeriksaan</h3>
-            <img src="{{ url_for('static', filename=grafik_pemeriksaan) }}" alt="Grafik Pemeriksaan">
-            <br>
-            <a href="{{ url_for('static', filename=grafik_pemeriksaan) }}" download class="download-btn">⬇️ Download Grafik Pemeriksaan</a>
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card chart-card">
+              <div class="card-header">
+                <i class="fas fa-microscope me-2"></i>Grafik Jumlah Pemeriksaan
+              </div>
+              <div class="card-body">
+                <img src="{{ url_for('static', filename=grafik_pemeriksaan) }}" 
+                     alt="Grafik Pemeriksaan" 
+                     class="chart-image"
+                     data-bs-toggle="modal" 
+                     data-bs-target="#imageModal"
+                     data-image-src="{{ url_for('static', filename=grafik_pemeriksaan) }}"
+                     data-image-title="Grafik Jumlah Pemeriksaan">
+                
+                <a href="{{ url_for('static', filename=grafik_pemeriksaan) }}" 
+                   download 
+                   class="btn btn-download">
+                  <i class="fas fa-download me-2"></i>Download Grafik Pemeriksaan
+                </a>
+              </div>
+            </div>
           </div>
         {% endif %}
       </div>
     {% else %}
-      <p style="color: red; text-align: center;">⚠️ Grafik tidak tersedia untuk bulan & tahun tersebut.</p>
+      <div class="no-data-alert">
+        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+        <h4>Data Grafik Tidak Tersedia</h4>
+        <p>Grafik tidak tersedia untuk bulan & tahun tersebut.</p>
+        <a href="{{ url_for('generate_grafik') }}" class="btn btn-primary mt-2">
+          <i class="fas fa-arrow-left me-2"></i>Kembali ke Generate Grafik
+        </a>
+      </div>
     {% endif %}
 
-    <div class="back-container">
-      <a href="{{ url_for('index') }}" class="back-btn">🔙 Kembali ke Menu</a>
+    <div class="text-center">
+      <a href="{{ url_for('index') }}" class="btn btn-back">
+        <i class="fas fa-home me-2"></i>Kembali ke Menu Utama
+      </a>
     </div>
   </div>
+
+  <!-- Image Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Preview Grafik</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Grafik" class="img-fluid">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <a id="modalDownload" href="#" download class="btn btn-success">
+            <i class="fas fa-download me-2"></i>Download
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Modal functionality
+    const imageModal = document.getElementById('imageModal');
+    imageModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const imageSrc = button.getAttribute('data-image-src');
+      const imageTitle = button.getAttribute('data-image-title');
+      
+      const modalTitle = imageModal.querySelector('.modal-title');
+      const modalImage = imageModal.querySelector('#modalImage');
+      const modalDownload = imageModal.querySelector('#modalDownload');
+      
+      modalTitle.textContent = imageTitle;
+      modalImage.src = imageSrc;
+      modalImage.alt = imageTitle;
+      modalDownload.href = imageSrc;
+      modalDownload.download = imageTitle.toLowerCase().replace(/\s+/g, '_') + '.png';
+    });
+  </script>
 </body>
 </html>
