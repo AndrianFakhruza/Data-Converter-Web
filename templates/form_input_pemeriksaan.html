@@ -3,11 +3,13 @@
 <head>
   <title>Input Jumlah Pemeriksaan</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(-45deg, #5c98f2, #7fd7ff, #8fbcff, #b0e0ff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
@@ -21,58 +23,108 @@
     }
 
     .container {
-      background-color: white;
-      padding: 30px;
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 35px;
+      border-radius: 20px;
       max-width: 1000px;
       margin: auto;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     h2 {
       text-align: center;
-      color: #333;
+      color: #2d3748;
       margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .month-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #17a2b8, #138496);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto 25px auto;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
     }
 
     input[type="text"] {
-      padding: 10px;
-      width: 300px;
-      margin: 0 auto 20px auto;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      display: block;
+      padding: 12px 20px 12px 45px;
+      width: 100%;
+      border-radius: 25px;
+      border: 2px solid #e2e8f0;
+      background: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #17a2b8;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
+    }
+
+    .table-wrapper {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
     }
 
     table {
-      margin: auto;
-      border-collapse: collapse;
       width: 100%;
-      background-color: white;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
+      border-collapse: collapse;
     }
 
     th {
-      background-color: #17a2b8;
+      background: linear-gradient(135deg, #17a2b8, #138496);
       color: white;
+      padding: 15px 20px;
+      font-weight: 600;
+      border: none;
+    }
+
+    td {
+      padding: 15px 20px;
+      border-bottom: 1px solid #f1f5f9;
     }
 
     tr:hover {
-      background-color: #f1f1f1;
+      background-color: #f8fafc;
+      transform: scale(1.01);
+      transition: all 0.2s ease;
     }
 
     input[type="number"] {
-      padding: 6px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
       width: 100px;
-      -moz-appearance: textfield;
-      appearance: textfield;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #17a2b8;
+      outline: none;
+      transform: scale(1.05);
     }
 
     input[type="number"]::-webkit-inner-spin-button,
@@ -86,41 +138,79 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 30px;
+      gap: 15px;
     }
 
-    button {
-      padding: 10px 25px;
-      background-color: green;
-      color: white;
+    .btn-modern {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: darkgreen;
-    }
-
-    .back-btn {
-      background-color: green;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 500;
       text-decoration: none;
-      display: inline-block;
-      padding: 10px 25px;
-      border-radius: 8px;
-      color: white;
-      transition: 0.3s;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .back-btn:hover {
-      background-color: #5a6268;
+    .btn-back {
+      background: linear-gradient(135deg, #6b7280, #4b5563);
+      color: white;
+    }
+
+    .btn-save {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .btn-modern:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      color: white;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .modal-header {
+      border: none;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .modal-footer {
+      border: none;
+    }
+
+    .modal .btn {
+      border-radius: 25px;
+      padding: 10px 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      .btn-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .btn-modern {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-
     {% if success %}
     <script>
       window.addEventListener("DOMContentLoaded", function () {
@@ -130,75 +220,99 @@
     </script>
     {% endif %}
 
-    <h2>Input Jumlah Pemeriksaan - Bulan {{ bulan }} / {{ tahun }}</h2>
+    <div style="text-align: center;">
+      <h2><i class="fas fa-stethoscope"></i> Input Jumlah Pemeriksaan</h2>
+      <div class="month-badge">
+        <i class="fas fa-calendar-alt"></i> {{ bulan }} / {{ tahun }}
+      </div>
+    </div>
 
     <form method="POST" action="{{ url_for('input_pemeriksaan') }}" id="pemeriksaanForm">
       <input type="hidden" name="bulan" value="{{ bulan }}">
       <input type="hidden" name="tahun" value="{{ tahun }}">
       <input type="hidden" name="submit_data" value="true">
 
-      <input type="text" placeholder="🔍 Cari pemeriksaan..." onkeyup="search(this)">
-      <table id="dataTable">
-        <tr><th>Jenis Pemeriksaan</th><th>Jumlah</th></tr>
-        {% for item in pemeriksaan_list %}
-          <tr>
-            <td>{{ item }}</td>
-            <td><input type="number" name="{{ item }}" min="0" placeholder="..."></td>
-          </tr>
-        {% endfor %}
-      </table>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Cari jenis pemeriksaan..." onkeyup="search(this)">
+      </div>
+
+      <div class="table-wrapper">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th><i class="fas fa-clipboard-list"></i> Jenis Pemeriksaan</th>
+              <th><i class="fas fa-hashtag"></i> Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in pemeriksaan_list %}
+              <tr>
+                <td>{{ item }}</td>
+                <td><input type="number" name="{{ item }}" min="0" placeholder="0"></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
       <div class="btn-container">
-        <a href="{{ url_for('index') }}" class="back-btn">🔙 Kembali ke Menu</a>
-        <button type="button" onclick="showConfirm()">💾 Simpan Data</button>
+        <a href="{{ url_for('index') }}" class="btn-modern btn-back">
+          <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        <button type="button" class="btn-modern btn-save" onclick="showConfirm()">
+          <i class="fas fa-save"></i> Simpan Data
+        </button>
       </div>
     </form>
   </div>
 
-  <!-- Modal Sukses -->
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="successModalLabel">✅ Data Berhasil Disimpan!</h5>
+          <h5 class="modal-title"><i class="fas fa-check-circle"></i> Berhasil!</h5>
         </div>
         <div class="modal-body">
-          Data berhasil disimpan ke:
-          <strong>data/jumlah_pemeriksaan_{{ tahun }}_{{ bulan }}.csv</strong>
+          Data berhasil disimpan ke: <strong>data/jumlah_pemeriksaan_{{ tahun }}_{{ bulan }}.csv</strong>
         </div>
         <div class="modal-footer">
-          <a href="{{ url_for('index') }}" class="btn btn-success">🏠 Kembali ke Menu</a>
-          <a href="{{ url_for('isi_jumlah_pemeriksaan') }}" class="btn btn-secondary">📅 Isi Bulan & Tahun Lagi</a>
+          <a href="{{ url_for('index') }}" class="btn btn-success">
+            <i class="fas fa-home"></i> Menu Utama
+          </a>
+          <a href="{{ url_for('isi_jumlah_pemeriksaan') }}" class="btn btn-secondary">
+            <i class="fas fa-plus"></i> Input Lagi
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal Konfirmasi -->
-  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <!-- Confirm Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-warning">
-          <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pengisian Data</h5>
+          <h5 class="modal-title"><i class="fas fa-question-circle"></i> Konfirmasi</h5>
         </div>
         <div class="modal-body">
           Apakah semua data sudah benar?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cek Lagi</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Periksa Lagi</button>
           <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Simpan</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     function search(input) {
       let filter = input.value.toUpperCase();
-      let rows = document.querySelectorAll("#dataTable tr");
-      for (let i = 1; i < rows.length; i++) {
+      let rows = document.querySelectorAll("#dataTable tbody tr");
+      for (let i = 0; i < rows.length; i++) {
         let td = rows[i].getElementsByTagName("td")[0];
         rows[i].style.display = td.innerHTML.toUpperCase().includes(filter) ? "" : "none";
       }
